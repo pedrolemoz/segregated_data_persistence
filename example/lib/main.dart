@@ -33,10 +33,10 @@ class InitialPage extends StatefulWidget {
 }
 
 class _InitialPageState extends State<InitialPage> {
+  final imageService = ServiceLocator.get<ImageService>();
   final images = ValueNotifier<Iterable<PersistedData>>([]);
 
   Future<void> _getImages() async {
-    final imageService = ServiceLocator.get<ImageService>();
     images.value = await imageService.getImages();
   }
 
