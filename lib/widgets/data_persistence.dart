@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import '../segregated_data_persistence.dart';
 
 class DataPersistence extends InheritedWidget {
-  final IDataPersistenceEngine engine = DataPersistenceEngine();
+  late final IDataPersistenceEngine engine;
 
-  DataPersistence({super.key, required super.child});
+  DataPersistence({
+    super.key,
+    IDataPersistenceEngine? engine,
+    required super.child,
+  }) : engine = engine ?? DataPersistenceEngine();
 
   static DataPersistence? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<DataPersistence>();
@@ -13,7 +17,7 @@ class DataPersistence extends InheritedWidget {
 
   static DataPersistence of(BuildContext context) {
     final DataPersistence? result = maybeOf(context);
-    assert(result != null, 'No SegregatedDataPersistenceRoot found in context');
+    assert(result != null, 'No DataPersistence found in context');
     return result!;
   }
 
