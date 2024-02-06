@@ -4,7 +4,7 @@ abstract interface class IDataPersistenceEngine {
   Future<PersistedData> persistData({required DataInfo data});
 
   Future<Iterable<PersistedData>> persistMultipleData({
-    required List<DataInfo> elements,
+    required Iterable<DataInfo> elements,
   });
 
   Future<PersistedData> getPersistedDataByFileName({required String fileName});

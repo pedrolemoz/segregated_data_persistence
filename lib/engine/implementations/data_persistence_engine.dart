@@ -31,7 +31,7 @@ final class DataPersistenceEngine implements IDataPersistenceEngine {
 
   @override
   Future<Iterable<PersistedData>> persistMultipleData({
-    required List<DataInfo> elements,
+    required Iterable<DataInfo> elements,
   }) async {
     final persistedDataList = <PersistedData>[];
 
