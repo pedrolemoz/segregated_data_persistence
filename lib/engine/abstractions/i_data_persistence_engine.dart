@@ -1,17 +1,21 @@
 import '../../segregated_data_persistence.dart';
 
 abstract interface class IDataPersistenceEngine {
-  Future<PersistedData> persistData({required DataInfo data});
+  Future<PersistedData> persist({required DataInfo data});
 
-  Future<Iterable<PersistedData>> persistMultipleData({
+  Future<Iterable<PersistedData>> persistMultiple({
     required Iterable<DataInfo> elements,
   });
 
-  Future<PersistedData> getPersistedDataByFileName({required String fileName});
+  Future<PersistedData> getByFileName({required String fileName});
 
-  Future<Iterable<PersistedData>> getAllPersistedData();
+  Future<Iterable<PersistedData>> getAllData();
 
-  Future<void> clearAllPersistedData();
+  Future<void> clearAllData();
 
-  Future<void> deletePersistedDataByFileName({required String fileName});
+  Future<void> deleteByFileName({required String fileName});
+
+  Future<bool> persistenceDirectoryIsEmpty();
+
+  Future<bool> existsByFileName({required String fileName});
 }

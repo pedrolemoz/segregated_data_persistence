@@ -23,7 +23,7 @@ class _PersistedImageState extends State<PersistedImage> {
 
   Future<void> _getImage() async {
     final engine = DataPersistence.of(context).engine;
-    final persistedData = await engine.getPersistedDataByFileName(
+    final persistedData = await engine.getByFileName(
       fileName: widget.fileName,
     );
     image.value = persistedData.content;

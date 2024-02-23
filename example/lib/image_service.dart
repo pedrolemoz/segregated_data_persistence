@@ -29,13 +29,14 @@ class ImageService {
   ];
 
   Future<Iterable<PersistedData>> getImages() async {
-    return await _persistenceEngine.persistMultipleData(
-      elements: _data.map(
-        (record) => DataInfo.fromUrl(
-          fileName: record.$1,
-          url: record.$2,
-        ),
-      ),
-    );
+    return await _persistenceEngine.getAllData();
+    //  await _persistenceEngine.persistMultipleData(
+    //   elements: _data.map(
+    //     (record) => DataInfo.fromUrl(
+    //       fileName: record.$1,
+    //       url: record.$2,
+    //     ),
+    //   ),
+    // );
   }
 }

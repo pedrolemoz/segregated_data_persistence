@@ -11,7 +11,7 @@ import '../../segregated_data_persistence.dart';
 
 final class DataPersistenceEngine implements IDataPersistenceEngine {
   @override
-  Future<PersistedData> persistData({required DataInfo data}) async {
+  Future<PersistedData> persist({required DataInfo data}) async {
     try {
       final dataInBytes = await _getDataBytes(
         uri: data.uri,
@@ -30,13 +30,13 @@ final class DataPersistenceEngine implements IDataPersistenceEngine {
   }
 
   @override
-  Future<Iterable<PersistedData>> persistMultipleData({
+  Future<Iterable<PersistedData>> persistMultiple({
     required Iterable<DataInfo> elements,
   }) async {
     final persistedDataList = <PersistedData>[];
 
     for (final data in elements) {
-      final persistedData = await persistData(data: data);
+      final persistedData = await persist(data: data);
       persistedDataList.add(persistedData);
     }
 
@@ -44,7 +44,7 @@ final class DataPersistenceEngine implements IDataPersistenceEngine {
   }
 
   @override
-  Future<Iterable<PersistedData>> getAllPersistedData() async {
+  Future<Iterable<PersistedData>> getAllData() async {
     try {
       final persistenceDirectory = await _getPersistenceDirectory();
       return persistenceDirectory.listSync().map(
@@ -59,7 +59,7 @@ final class DataPersistenceEngine implements IDataPersistenceEngine {
   }
 
   @override
-  Future<PersistedData> getPersistedDataByFileName({
+  Future<PersistedData> getByFileName({
     required String fileName,
   }) async {
     try {
@@ -77,7 +77,7 @@ final class DataPersistenceEngine implements IDataPersistenceEngine {
   }
 
   @override
-  Future<void> clearAllPersistedData() async {
+  Future<void> clearAllData() async {
     try {
       final persistenceDirectory = await _getPersistenceDirectory();
       await persistenceDirectory.delete(recursive: true);
@@ -87,9 +87,9 @@ final class DataPersistenceEngine implements IDataPersistenceEngine {
   }
 
   @override
-  Future<void> deletePersistedDataByFileName({required String fileName}) async {
+  Future<void> deleteByFileName({required String fileName}) async {
     try {
-      final data = await getPersistedDataByFileName(fileName: fileName);
+      final data = await getByFileName(fileName: fileName);
       await data.content.delete();
     } catch (exception) {
       throw UnableToDeletePersistedDataException(reason: exception);
@@ -136,4 +136,17 @@ final class DataPersistenceEngine implements IDataPersistenceEngine {
 
   String _getFileName({required FileSystemEntity file}) =>
       file.path.split(Platform.pathSeparator).last;
+
+  @override
+  Future<bool> existsByFileName({required String fileName}) async {
+    final persistenceDirectory = await _getPersistenceDirectory();
+    persistenceDirectory.list().where
+
+  }
+
+  @override
+  Future<bool> persistenceDirectoryIsEmpty() {
+    // TODO: implement persistenceDirectoryIsEmpty
+    throw UnimplementedError();
+  }
 }
